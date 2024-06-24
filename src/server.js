@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
-
+const libroRutes = require('./routes/libroRoutes');
 const app = express();
 const port = 3000;
 
@@ -27,6 +27,8 @@ db.once('open', () => {
 
 // Usar las rutas de usuario
 app.use('/', userRoutes);
+// Usar para las rutas de los Libros
+app.use('/', libroRutes);
 
 
 app.listen(port, () => {
