@@ -1,0 +1,9 @@
+{
+    "reporter": "mochawesome",
+    "reporter-option": [
+      "overwrite=true",
+      "reportTitle=API Test Report",
+      "reportPageTitle=API Test Report"
+    ]
+  }
+  

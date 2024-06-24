@@ -1,0 +1,28 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Document</title>
+    </head>
+
+    <body>
+
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" class="field" id="correo" name="correo" required>
+                <div class="invalid-feedback">Por favor ingrese un correo electrónico válido.</div>
+            </div>
+            <div class="mb-3">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" class="field" id="contrasena" name="contrasena" required>
+                <div class="invalid-feedback">Por favor ingrese una contraseña.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </body>
+
+    </html>
