@@ -2,9 +2,20 @@ const express = require('express');
 const Libros = require('../models/libros');
 const { models } = require('mongoose');
 const router = express.Router();
+const LibroController = require('../controllers/libros.controller')
+const path = require('path');
+
+//Ruta para las vistas
 
 
-// Ruta para obtener todos los libros
+router.post("/dashboard", LibroController.registrarLibro);
+
+router.get('/home', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../views/home.html'));
+});
+
+
+// Ruta para obtener todos los libros en POSTMAN
 router.get('/libros', async (req, res) => {
     try {
         const libro = await Libros.find();

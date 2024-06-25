@@ -14,7 +14,7 @@ const index = (req, res) => {
 const login = async (req, res) => {
     try {
         const { correo, contrasena } = req.body;
-        console.log('antes', req.body)
+       // console.log('antes', req.body) //Esto se muestra en la consola
         // Buscar el usuario por correo
         const user = await User.findOne({ correo });
         if (!user) {
@@ -27,7 +27,7 @@ const login = async (req, res) => {
             return res.status(401).json({ error: 'Contraseña incorrecta' });
         }
 
-        console.log('antes', req.body)
+       // console.log('antes', req.body) //Esto se muestra en la consola
 
         // Generar un token JWT
         const token = jwt.sign({ id: user._id, correo: user.correo }, jwtSecret, { expiresIn: '1h' });

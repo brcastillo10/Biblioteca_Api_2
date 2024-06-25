@@ -17,11 +17,6 @@ router.get('/', controller.index);
 
 router.post("/login", controller.login);
 
-router.get('/home', (req, res) => {
-    /* res.sendFile(path.join(__dirname, '../views/home.html')); */
-    res.sendFile(path.resolve(__dirname, "../views/home.html"));
-});
-
 router.get('/registerview', (req, res) => {
     /* res.sendFile(path.join(__dirname, '../views/home.html')); */
     res.sendFile(path.resolve(__dirname, "../../public/register.html"));

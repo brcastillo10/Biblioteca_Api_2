@@ -99,7 +99,7 @@
                 <h2 class="card-title">Lista de Libros</h2>
             </div>
             <div class="card-body">
-                <table>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -119,10 +119,10 @@
                 <h2 class="card-title">Agregar Libro</h2>
             </div>
             <div class="card-body">
-                <form id="add-book-form">
+                <form id="addlibro">
                     <div class="mb-3">
-                        <label for="title" class="form-label">Título:</label>
-                        <input type="text" class="form-control" id="titulo" name="title" required>
+                        <label for="titulo" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" required>
                     </div>
                     <div class="mb-3">
                         <label for="editorial" class="form-label">Editorial:</label>
@@ -148,27 +148,7 @@
                 </form>
             </div>
         </div>
-        <div class="card" id="update-card" style="display:none;">
-            <div class="card-header">
-                <h2 class="card-title">Actualizar Libro</h2>
-            </div>
-            <div class="card-body">
-                <form id="update-book-form">
-                    <input type="hidden" id="update-id" name="id">
-                    <div class="mb-3">
-                        <label for="update-title" class="form-label">Título:</label>
-                        <input type="text" class="form-control" id="update-title" name="title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="update-author" class="form-label">Autor:</label>
-                        <input type="text" class="form-control" id="update-author" name="author" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                    <button type="button" class="btn btn-secondary" id="cancel-update">Cancelar</button>
-                </form>
-            </div>
-        </div>
     </div>
-    <script src="../public/dashboard.js"></script>
+    <script src="/biblioDash.js"></script>
 </body>
 </html>
