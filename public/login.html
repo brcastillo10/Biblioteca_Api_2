@@ -21,24 +21,29 @@
                     <h2>Login</h2>
                     <form id="loginForm" action="POST">
                         <div class="mb-3">
-                          <label for="correo" class="form-label">Correo</label>
-                          <input type="email" class="form-control" name="correo" id="correo" aria-describedby="emailHelp">
-                          <div id="emailHelp" class="form-text">No compartiremos tu correo con nadie más.</div>
+                            <label for="correo" class="form-label">Correo</label>
+                            <input type="email" class="form-control" name="correo" id="correo"
+                                aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">No compartiremos tu correo con nadie más.</div>
                         </div>
                         <div class="mb-3">
-                          <label for="contrasena" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" name="contrasena" id="contrasena">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="contrasena" id="contrasena">
                         </div>
-                
+
                         <button type="submit" class="btn btn-primary">Enviar</button>
-                        <a href="/registerview" class="btn btn-info" type="button">Registar</a>
-
+                        <br>
+                        <p>No tienes una cuenta? <a href="/registerview" class="" type="">
+                            Registrate
+                        </a></p>
                         
-                      </form>
-                      <div style="margin-top: 20px;" id="error-container"></div>
 
-                       <!-- <div id="response"></div> -->
-                     
+
+                    </form>
+                    <div style="margin-top: 20px;" id="error-container"></div>
+
+                    <!-- <div id="response"></div> -->
+
 
 
 
@@ -48,7 +53,7 @@
             </div>
         </div>
 
-       
+
 
     </div>
     <script src="/main.js"></script>
