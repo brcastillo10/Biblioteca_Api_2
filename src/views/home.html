@@ -3,11 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>Dashboard Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #f7f7f7;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .card-title {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.15rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>hola mundo</h1>
-    <script src="/main.js"></script>
+    <nav class="navbar">
+        <div class="container">
+            <span class="navbar-brand">Dashboard Biblioteca</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Lista de Libros</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="book-list">
+                        <!-- Lista de libros -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Agregar Libro</h2>
+            </div>
+            <div class="card-body">
+                <form id="add-book-form">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="titulo" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editorial" class="form-label">Editorial:</label>
+                        <input type="text" class="form-control" id="editorial" name="editorial" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaDePublicacion" class="form-label">Fecha de Publicación:</label>
+                        <input type="date" class="form-control" id="fechaDePublicacion" name="fechaDePublicacion" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="autores" class="form-label">Autores (separados por comas):</label>
+                        <input type="text" class="form-control" id="autores" name="autores" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="genero" class="form-label">Género:</label>
+                        <input type="text" class="form-control" id="genero" name="genero" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="resumen" class="form-label">Resumen:</label>
+                        <textarea class="form-control" id="resumen" name="resumen" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+        </div>
+        <div class="card" id="update-card" style="display:none;">
+            <div class="card-header">
+                <h2 class="card-title">Actualizar Libro</h2>
+            </div>
+            <div class="card-body">
+                <form id="update-book-form">
+                    <input type="hidden" id="update-id" name="id">
+                    <div class="mb-3">
+                        <label for="update-title" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="update-title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="update-author" class="form-label">Autor:</label>
+                        <input type="text" class="form-control" id="update-author" name="author" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-update">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../public/dashboard.js"></script>
 </body>
 </html>
