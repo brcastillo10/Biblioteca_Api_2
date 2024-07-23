@@ -1,6 +1,19 @@
 //Manejo de formulario para eliminar, modificar y añadir un libro
 
 document.addEventListener('DOMContentLoaded', () => {
+    //Redirije al inicio si no hay token
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = '/';
+    }
+    //Funcion que cierra sesion del token
+    const cerrarsesionButton  = document.getElementById('cerrarsesion-Button');
+    cerrarsesionButton.addEventListener('click', ()=>{
+        localStorage.removeItem('token');
+    //    console.log('Token removido');
+        window.Location.href = '/';
+    })
+    
     const form = document.getElementById('addlibro');
     const LibroLista = document.getElementById('book-list');
 
@@ -70,8 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+
+
     // Cargar libros al inicio del dashboard
     CargarLibro();
+
 });
 
 

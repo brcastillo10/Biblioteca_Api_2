@@ -13,9 +13,13 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     });
 
     if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+     //   console.log('Token generado: ', data.token); //Ver si se genera el token
         window.location.href = '/home';
     } else {
         // Si hay un error en el inicio de sesión, mostrar el mensaje de error
+        console.log('Fallo el iniciar sesion')
         const errorResponse = await response.json();
         const errorMessage = errorResponse.error;
 

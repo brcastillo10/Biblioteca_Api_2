@@ -19,7 +19,7 @@ const registerUsers = async (req, res)=>{
         //Encriptar Contraseña
         const hashContra = await bcrypt.hash(contrasena, saltRound)
 
-        const nuevoUsuario = new User({ nombre, edad, correo, ciudad, contrasena: hashContra });
+        const nuevoUsuario = new User({ nombre, edad, correo, ciudad, contrasena: hashContra, role: 'user' });
         const guardarUsuario = await nuevoUsuario.save();
         res.status(200).send(guardarUsuario);
     } catch (err) {
