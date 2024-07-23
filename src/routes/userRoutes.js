@@ -3,38 +3,44 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 const controller = require("../controllers/main.controller");
-//Agregamos bcrypt
 const bcrypt = require('bcrypt');
-const app = require('../server');
-const saltRound = 10; //Se hace una variable para el algoritmo de encriptcion en la cual sirve para saber las veces que se repetira el algoritmo para que sepa cuantas veces lo tiene que encriptar
-//Paquete para generar token
-const jwt = require('jsonwebtoken');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middleware/auth');
+const saltRound = 10; // Número de rondas de encriptación para bcrypt
 const jwtSecret = 'hola-richar-key';
 
-// Ruta para la vista
+// Ruta para la vista principal
 router.get('/', controller.index);
 
+// Ruta para login
 router.post("/login", controller.login);
 
+// Ruta para la página de inicio
 router.get('/home', (req, res) => {
-    /* res.sendFile(path.join(__dirname, '../views/home.html')); */
     res.sendFile(path.resolve(__dirname, "../views/home.html"));
 });
 
+// Ruta para la vista de registro
 router.get('/registerview', (req, res) => {
-    /* res.sendFile(path.join(__dirname, '../views/home.html')); */
     res.sendFile(path.resolve(__dirname, "../../public/register.html"));
 });
 
+// Ruta auth para obtener información del usuario
+router.get('/user-info', authMiddleware, controller.getUserInfo);
+router.post('/toggle-2fa', authMiddleware, controller.toggle2FA);
+
+// Rutas para 2FA
+router.post('/setup-2fa', controller.setup2FA);
+router.post('/verify-2fa', controller.verify2FA);
 
 // Ruta para registrar usuario
 router.post('/register', async (req, res) => {
     try {
         const { nombre, edad, correo, ciudad, contrasena } = req.body;
 
-        //Encriptar Contraseña
-        const hashContra = await bcrypt.hash(contrasena, saltRound)
+        // Encriptar Contraseña
+        const hashContra = await bcrypt.hash(contrasena, saltRound);
 
         const nuevoUsuario = new User({ nombre, edad, correo, ciudad, contrasena: hashContra });
         const guardarUsuario = await nuevoUsuario.save();
@@ -43,33 +49,6 @@ router.post('/register', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
-
-//Ruta para el Login
-/* router.post('/login', async (req, res) => {
-    try {
-        const { correo, contrasena } = req.body;
-
-        //Buscar el usuario por correo
-        const user = await User.findOne({ correo });
-        if (!user) {
-            return res.status(401).json({ error: 'Usuario no encontrado' });
-        }
-
-        //Comparar la contraseña
-        const match = await bcrypt.compare(contrasena, user.contrasena);
-        if (!match) {
-            return res.status(401).json({ error: 'Contraseña incorrecta' });
-        }
-
-        //Generar un token JWT
-        const token = jwt.sign({ id: user._id, correo: user.correo }, jwtSecret, { expiresIn: '1h' });
-        res.status(200).json({ token });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}); */
-
-
 
 // Ruta para eliminar un usuario por su ID
 router.delete('/users/:userId', async (req, res) => {

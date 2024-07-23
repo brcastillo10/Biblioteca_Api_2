@@ -19,27 +19,25 @@
             <div class="col-3 align-self-center">
                 <div style="padding-left: 10px;" class="container text-start">
                     <h2>Login</h2>
-                    <form id="loginForm" action="POST">
+                    <form id="loginForm" method="POST" action="/login">
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo</label>
-                            <input type="email" class="form-control" name="correo" id="correo"
-                                aria-describedby="emailHelp">
+                            <input type="email" class="form-control" name="correo" id="correo" required>
                             <div id="emailHelp" class="form-text">No compartiremos tu correo con nadie más.</div>
                         </div>
                         <div class="mb-3">
                             <label for="contrasena" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" name="contrasena" id="contrasena">
+                            <input type="password" class="form-control" name="contrasena" id="contrasena" required>
                         </div>
-
+                        <div id="twoFactorField" class="mb-3" style="display: none;">
+                            <label for="twoFactorToken" class="form-label">Código 2FA</label>
+                            <input type="text" class="form-control" name="twoFactorToken" id="twoFactorToken">
+                        </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
-                        <br>
-                        <p>No tienes una cuenta? <a href="/registerview" class="" type="">
-                            Registrate
-                        </a></p>
-                        
-
-
+                        <p>No tienes una cuenta? <a href="/registerview">Registrate</a></p>
+                        <div id="error-container"></div>
                     </form>
+                    
                     <div style="margin-top: 20px;" id="error-container"></div>
 
                     <!-- <div id="response"></div> -->
