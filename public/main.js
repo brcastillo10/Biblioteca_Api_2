@@ -18,12 +18,15 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     // Si la respuesta del servidor es exitosa
     if (response.ok) {
-    // Redirige al usuario a la página de inicio
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+     //   console.log('Token generado: ', data.token); //Ver si se genera el token
         window.location.href = '/home';
     } else {
         // Si hay un error en el inicio de sesión, mostrar el mensaje de error
-        const errorResponse = await response.json(); // Convierte la respuesta de error a un objeto JSON
-        const errorMessage = errorResponse.error;   // Extrae el mensaje de error del objeto JSON
+        console.log('Fallo el iniciar sesion')
+        const errorResponse = await response.json();
+        const errorMessage = errorResponse.error;
 
         // Encuentra el contenedor de errores en el DOM
         const errorContainer = document.getElementById('error-container');

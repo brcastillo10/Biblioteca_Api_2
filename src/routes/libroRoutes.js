@@ -2,65 +2,40 @@ const express = require('express');
 const Libros = require('../models/libros');
 const { models } = require('mongoose');
 const router = express.Router();
+const LibroController = require('../controllers/libros.controller')
+const path = require('path');
+const { checkRole, verificarToken} = require('../controllers/main.controller'); //requerimos las funciones de verificar token y checkar el rol
+
+//Ruta para las vistas
 
 
-// Ruta para obtener todos los libros
-router.get('/libros', async (req, res) => {
-    try {
-        const libro = await Libros.find();
-        res.status(200).send(libro);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
+router.post("/dashboard", LibroController.registrarLibro);
+
+router.get('/home', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../views/home.html'));
 });
 
-//Ruta para registrar libros
-router.post('/libros', async (req,res)=>{
-    try {
-        const { titulo, editorial, fechaDePublicacion, autores, genero, resumen } = req.body;
-        const nuevoLibro = new Libros({ titulo, editorial, fechaDePublicacion, autores, genero, resumen });
-        const guardarlibro = await nuevoLibro.save();
-        res.status(200).send(guardarlibro);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
+router.get('/libros', LibroController.getLibro);
 
+router.post('/libros', LibroController.PostLibro);
 
-// Ruta para eliminar un libro por su ID
-router.delete('/libros/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const deletedlibro = await Libros.findByIdAndDelete(id);
-        if (!deletedlibro) {
-            return res.status(404).send("Libro no encontrado");
-        }
-        res.status(200).send("El lirbo fue eliminado correctamente");
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
+router.delete('/libros/:id', checkRole(['admin']),LibroController.deletLibro); //Solo el rol admin puede eliminar
 
-// Ruta para actualizar un libro por su ID
-router.put('/libros/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const { titulo, editorial, fechaDePublicacion, autores, genero, resumen } = req.body;
-
-        const updatedlibros = await Libros.findByIdAndUpdate(id, { titulo, editorial, fechaDePublicacion, autores, genero, resumen }, { new: true });
-        if (!updatedlibros) {
-            return res.status(404).send("Libro no encontrado");
-        }
-        res.status(200).send(updatedlibros);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
+router.put('/libros/:id', verificarToken, checkRole(['admin']),LibroController.updateLibro)
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
 /*
+
+
 {
     "titulo": "Cien Años de Soledad",
     "editorial": "Editorial Sudamericana",

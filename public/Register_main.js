@@ -15,10 +15,12 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     });
 
     if (response.ok) {
+        alert('Usuario registrado correctamente');
         window.location.href = '/';
     } else {
         // Si hay un error en el inicio de sesión, mostrar el mensaje de error
         const errorResponse = await response.json();
+        console.error('Error registrando usuario');
         /* const errorMessage = errorResponse.error;
 
         const errorContainer = document.getElementById('error-container');
