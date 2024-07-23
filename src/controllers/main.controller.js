@@ -1,10 +1,11 @@
 // main.controller.js
-
+// se importa los diferentes módulos para poder trabajar con las diferentes rutas y directorios
 const path = require("path");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// Define la clave secreta para firmar tokens JWT
 const jwtSecret = 'hola-richar-key';
 
 const index = (req, res) => {
