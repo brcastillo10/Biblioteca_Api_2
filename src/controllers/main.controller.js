@@ -122,4 +122,28 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { index, login, setup2FA, verify2FA, getUserInfo, toggle2FA };
+//middleware
+
+const verificarToken = (req, res, next) => {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    if (!token) {
+        return res.status(401).send('Acceso denegado');
+    }
+    try {
+        const verified = jwt.verify(token, jwtSecret);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(400).send('Token inválido');
+    }
+};
+
+//Verificar el role
+const checkRole = (roles) => (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+        return res.status(403).send('Acceso denegado');
+    }
+    next();
+};
+
+module.exports = { index, login, setup2FA, verify2FA, getUserInfo, toggle2FA, verificarToken, checkRole };
