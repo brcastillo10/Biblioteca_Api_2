@@ -18,7 +18,7 @@ router.get('/', controller.index);
 router.post("/login", controller.login);
 
 // Ruta para la página de inicio
-router.get('/home', authMiddleware ,(req, res) => {
+router.get('/home',(req, res) => {
     res.sendFile(path.resolve(__dirname, "../views/home.html"));
 });
 
@@ -41,5 +41,20 @@ router.post('/register', UserController.registerUsers);
 router.delete('/users/:userId',UserController.deleteUsers);
 router.put('/users/:userId', UserController.UpdateUsers);
 
+// Ruta para registrar usuario
+router.post('/register', async (req, res) => {
+    try {
+        const { nombre, edad, correo, ciudad, contrasena } = req.body;
+
+        // Encriptar Contraseña
+        const hashContra = await bcrypt.hash(contrasena, saltRound);
+
+        const nuevoUsuario = new User({ nombre, edad, correo, ciudad, contrasena: hashContra });
+        const guardarUsuario = await nuevoUsuario.save();
+        res.status(200).send(guardarUsuario);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
 
 module.exports = router;

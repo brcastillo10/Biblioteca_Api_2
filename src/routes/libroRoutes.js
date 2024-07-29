@@ -20,9 +20,9 @@ router.get('/libros', LibroController.getLibro);
 
 router.post('/libros', LibroController.PostLibro);
 
-router.delete('/libros/:id', checkRole(['admin']),LibroController.deletLibro); //Solo el rol admin puede eliminar
+router.delete('/libros/:id',LibroController.deletLibro);
 
-router.put('/libros/:id', authMiddleware, checkRole(['admin']),LibroController.updateLibro)
+router.put('/libros/:id', LibroController.updateLibro)
 
 
 module.exports = router;
