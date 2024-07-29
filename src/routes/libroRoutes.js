@@ -3,8 +3,9 @@ const Libros = require('../models/libros');
 const { models } = require('mongoose');
 const router = express.Router();
 const LibroController = require('../controllers/libros.controller')
+const authMiddleware = require('../middleware/auth');
 const path = require('path');
-const { checkRole, verificarToken} = require('../controllers/main.controller'); //requerimos las funciones de verificar token y checkar el rol
+const { checkRole} = require('../controllers/main.controller'); //requerimos las funciones de verificar token y checkar el rol
 
 //Ruta para las vistas
 
@@ -21,7 +22,7 @@ router.post('/libros', LibroController.PostLibro);
 
 router.delete('/libros/:id', checkRole(['admin']),LibroController.deletLibro); //Solo el rol admin puede eliminar
 
-router.put('/libros/:id', verificarToken, checkRole(['admin']),LibroController.updateLibro)
+router.put('/libros/:id', authMiddleware, checkRole(['admin']),LibroController.updateLibro)
 
 
 module.exports = router;

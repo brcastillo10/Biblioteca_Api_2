@@ -3,6 +3,7 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 const controller = require("../controllers/main.controller");
+const UserController = require("../controllers/users.controller");
 const bcrypt = require('bcrypt');
 const path = require('path');
 const jwt = require('jsonwebtoken');
@@ -17,7 +18,7 @@ router.get('/', controller.index);
 router.post("/login", controller.login);
 
 // Ruta para la página de inicio
-router.get('/home', (req, res) => {
+router.get('/home', authMiddleware ,(req, res) => {
     res.sendFile(path.resolve(__dirname, "../views/home.html"));
 });
 
@@ -34,60 +35,11 @@ router.post('/toggle-2fa', authMiddleware, controller.toggle2FA);
 router.post('/setup-2fa', controller.setup2FA);
 router.post('/verify-2fa', controller.verify2FA);
 
-// Ruta para registrar usuario
-router.post('/register', async (req, res) => {
-    try {
-        const { nombre, edad, correo, ciudad, contrasena } = req.body;
+//Ruta de los usuarios
+router.get('/users', UserController.getUsers);
+router.post('/register', UserController.registerUsers);
+router.delete('/users/:userId',UserController.deleteUsers);
+router.put('/users/:userId', UserController.UpdateUsers);
 
-        // Encriptar Contraseña
-        const hashContra = await bcrypt.hash(contrasena, saltRound);
-
-        const nuevoUsuario = new User({ nombre, edad, correo, ciudad, contrasena: hashContra });
-        const guardarUsuario = await nuevoUsuario.save();
-        res.status(200).send(guardarUsuario);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
-// Ruta para eliminar un usuario por su ID
-router.delete('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const deletedUser = await User.findByIdAndDelete(userId);
-        if (!deletedUser) {
-            return res.status(404).send("Usuario no encontrado");
-        }
-        res.status(200).send("Usuario eliminado correctamente");
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
-// Ruta para actualizar un usuario por su ID
-router.put('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const { nombre, edad, correo, ciudad } = req.body;
-
-        const updatedUser = await User.findByIdAndUpdate(userId, { nombre, edad, correo, ciudad }, { new: true });
-        if (!updatedUser) {
-            return res.status(404).send("Usuario no encontrado");
-        }
-        res.status(200).send(updatedUser);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
-// Ruta para obtener todos los usuarios
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).send(users);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
 
 module.exports = router;
