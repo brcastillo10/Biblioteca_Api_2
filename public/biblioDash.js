@@ -38,110 +38,89 @@ document.addEventListener('DOMContentLoaded', async function() {
                     window.location.href = '/';
                 });
 
-                const libroList = document.getElementById('book-list').querySelector('tbody');
-                const updatelibroForm = document.getElementById('update-book-form');
 
                 const cargarLibros = async () => {
                     try {
-                        const response = await fetch('/libros', {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
+                        const response = await fetch('/libros');
                         const libros = await response.json();
-                        libroList.innerHTML = '';
+            
+                        const tableBody = document.querySelector('#book-list tbody');
+                        tableBody.innerHTML = '';
+            
                         libros.forEach(libro => {
                             const row = document.createElement('tr');
+            
                             row.innerHTML = `
                                 <td>${libro._id}</td>
                                 <td>${libro.titulo}</td>
                                 <td>${libro.autores.join(', ')}</td>
                                 <td>
-                                    <button class="btn btn-secondary" onclick="editBook('${libro._id}')">Editar</button>
-                                    <button class="btn btn-danger" onclick="deleteBook('${libro._id}')">Eliminar</button>
+                                    <button class="btn btn-primary btn-edit" data-id="${libro._id}">Editar</button>
                                 </td>
                             `;
-                            libroList.appendChild(row);
+            
+                            tableBody.appendChild(row);
                         });
-                    } catch (error) {
-                        console.error('Error cargando libros:', error);
+            
+                        // Agregar evento a los botones de editar
+                        document.querySelectorAll('.btn-edit').forEach(button => {
+                            button.addEventListener('click', (e) => {
+                                const libroId = e.target.dataset.id;
+                                const libro = libros.find(lib => lib._id === libroId);
+            
+                                if (libro) {
+                                    document.querySelector('#book-id').value = libro._id;
+                                    document.querySelector('#titulo').value = libro.titulo;
+                                    document.querySelector('#editorial').value = libro.editorial;
+                                    document.querySelector('#fechaDePublicacion').value = libro.fechaDePublicacion.split('T')[0];
+                                    document.querySelector('#autores').value = libro.autores.join(', ');
+                                    document.querySelector('#genero').value = libro.genero;
+                                    document.querySelector('#resumen').value = libro.resumen;
+                                }
+                            });
+                        });
+                    } catch (err) {
+                        console.error(err);
                     }
                 };
 
-                window.editBook = async (id) => {
-                    try {
-                        const response = await fetch(`/libros/${id}`, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
+                                    // Función para actualizar el libro
+                    const updatelibross = async (e) => {
+                        e.preventDefault();
+
+                        const libroId = document.querySelector('#book-id').value;
+                        const titulo = document.querySelector('#titulo').value;
+                        const editorial = document.querySelector('#editorial').value;
+                        const fechaDePublicacion = document.querySelector('#fechaDePublicacion').value;
+                        const autores = document.querySelector('#autores').value.split(',').map(a => a.trim());
+                        const genero = document.querySelector('#genero').value;
+                        const resumen = document.querySelector('#resumen').value;
+
+                        try {
+                            const response = await fetch(`/libros/${libroId}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({ titulo, editorial, fechaDePublicacion, autores, genero, resumen })
+                            });
+
+                            if (response.ok) {
+                                const updatedLibro = await response.json();
+                                document.querySelector('#message').innerText = 'Libro actualizado con éxito!';
+                                cargarLibros(); // Recargar la lista de libros
+                            } else {
+                                const error = await response.text();
+                                document.querySelector('#message').innerText = `Error: ${error}`;
                             }
-                        });
-                        if (response.status === 404) {
-                            showMessage('Libro no encontrado', 'warning');
-                            return;
+                        } catch (err) {
+                            document.querySelector('#message').innerText = `Error: ${err.message}`;
                         }
-                        const libro = await response.json();
-                        document.getElementById('book-id').value = libro._id;
-                        document.getElementById('titulo').value = libro.titulo;
-                        document.getElementById('editorial').value = libro.editorial;
-                        document.getElementById('fechaDePublicacion').value = libro.fechaDePublicacion.split('T')[0];
-                        document.getElementById('autores').value = libro.autores.join(', ');
-                        document.getElementById('genero').value = libro.genero;
-                        document.getElementById('resumen').value = libro.resumen;
-                    } catch (error) {
-                        console.error('Error obteniendo libro:', error);
-                    }
-                };
-
-                updatelibroForm.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    const id = document.getElementById('book-id').value;
-                    const titulo = document.getElementById('titulo').value;
-                    const editorial = document.getElementById('editorial').value;
-                    const fechaDePublicacion = document.getElementById('fechaDePublicacion').value;
-                    const autores = document.getElementById('autores').value.split(',').map(a => a.trim());
-                    const genero = document.getElementById('genero').value;
-                    const resumen = document.getElementById('resumen').value;
-
-                    try {
-                        const response = await fetch(`/libros/${id}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({ titulo, editorial, fechaDePublicacion, autores, genero, resumen })
-                        });
-                        if (response.ok) {
-                            cargarLibros();
-                            updatelibroForm.reset();
-                            showMessage('Libro actualizado correctamente', 'success');
-                        } else {
-                            console.error('Error actualizando libro');
-                        }
-                    } catch (error) {
-                        console.error('Error actualizando libro:', error);
-                    }
-                });
-
-                window.deleteBook = async (id) => {
-                    try {
-                        const response = await fetch(`/libros/${id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-                        if (response.ok) {
-                            cargarLibros();
-                        } else {
-                            console.error('Error eliminando libro');
-                        }
-                    } catch (error) {
-                        console.error('Error eliminando libro:', error);
-                    }
-                };
+                    };
 
                 cargarLibros();
+                document.querySelector('#update-book-form').addEventListener('submit', updatelibross);
             } else {
                 console.error('Error al obtener los datos del usuario:', userData.message);
             }

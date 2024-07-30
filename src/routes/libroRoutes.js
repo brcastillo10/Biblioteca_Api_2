@@ -16,13 +16,18 @@ router.get('/home', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../views/home.html'));
 });
 
-router.get('/libros', LibroController.getLibro);
+//Vista para actualizar libro
+router.get('/librosupdate', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/librosupdate.html'));
+});
 
-router.post('/libros', LibroController.PostLibro);
+router.get('/libros' ,LibroController.getLibro);
+
+router.post('/libros' ,LibroController.PostLibro);
 
 router.delete('/libros/:id',LibroController.deletLibro);
 
-router.put('/libros/:id', LibroController.updateLibro)
+router.put('/libros/:id',LibroController.updateLibro)
 
 
 module.exports = router;
