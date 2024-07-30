@@ -28,7 +28,7 @@
 1. Hacer un fork del repositorio.
 
 2. Clonar el repositorio:
-    git clone https://github.com/erickklu/GestionEmpleados.git
+    git clone https://github.com/brcastillo10/Biblioteca_Api_2.git
 
 3. Crear una nueva rama: 
     git checkout -b nombre-de-la-rama
