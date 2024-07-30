@@ -1,4 +1,5 @@
-## API REST BIBLIOTECA
+# API REST BIBLIOTECA
+Esta API REST está diseñada para permitir a los usuarios buscar, reservar y devolver libros, así como para que los administradores puedan gestionar la colección de libros y los usuarios del sistema.
 
 #  Estructura del Proyecto
 - src/: Código fuente.
