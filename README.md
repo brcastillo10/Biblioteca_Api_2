@@ -1,5 +1,5 @@
 # BIBLIOTECA
-Esta API REST está diseñada para permitir a los usuarios buscar, reservar y devolver libros, así como para que los administradores puedan gestionar la colección de libros y los usuarios del sistema.
+Este panel está diseñado para permitir a los usuarios buscar, reservar y devolver libros, así como para que los administradores puedan gestionar la colección de libros y los usuarios del sistema.
 
 # Tecnologías Utilizadas
 Hemos utilizado Node.js y Express para la implementación del backend, y MongoDB como base de datos para almacenar la información de los libros y usuarios.
