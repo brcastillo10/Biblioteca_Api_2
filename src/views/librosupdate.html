@@ -11,6 +11,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <span class="navbar-brand">Dashboard Biblioteca</span>
+            <a href="/home" type="button" class="btn btn-dark">Volver al Dashboard</a>
         </div>
     </nav>
     <div class="container">
@@ -36,6 +37,7 @@
 
         <h2>Actualizar Libro</h2>
         <form id="update-book-form">
+            <div id="message"></div>
             <div class="mb-3">
                 <label for="book-id" class="form-label">ID del Libro</label>
                 <input type="text" class="form-control" id="book-id" readonly>
@@ -67,8 +69,7 @@
             <button type="submit" class="btn btn-primary">Actualizar Libro</button>
         </form>
 
-        <a href="/home" type="button" class="btn btn-dark">Volver al Dashboard</a>
-        <div id="message"></div>
+
     </div>
 
     <script src="biblioDash.js"></script>

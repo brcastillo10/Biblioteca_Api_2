@@ -37,7 +37,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                     localStorage.removeItem('token');
                     window.location.href = '/';
                 });
+                const messageDiv = document.getElementById('message');
 
+                const showMessage = (message, type) => {
+                    messageDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+                };
+            
 
                 const cargarLibros = async () => {
                     try {
@@ -108,14 +113,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                             if (response.ok) {
                                 const updatedLibro = await response.json();
-                                document.querySelector('#message').innerText = 'Libro actualizado con éxito!';
+                                showMessage('Libro actualizado con éxito', 'success');
+                                //document.querySelector('#message').innerText = 'Libro actualizado con éxito!';
                                 cargarLibros(); // Recargar la lista de libros
                             } else {
                                 const error = await response.text();
-                                document.querySelector('#message').innerText = `Error: ${error}`;
+                                showMessage('Error de solicitud: Datos inválidos', 'warning');
+                                //document.querySelector('#message').innerText = `Error: ${error}`;
                             }
                         } catch (err) {
-                            document.querySelector('#message').innerText = `Error: ${err.message}`;
+                            showMessage('Error del servidor', 'danger');
+                            //document.querySelector('#message').innerText = `Error: ${err.message}`;
                         }
                     };
 
@@ -132,11 +140,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         window.location.href = '/';
     }
 });
-
+/*
 function showMessage(message, type) {
     const messageDiv = document.getElementById('message');
     messageDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
     setTimeout(() => {
         messageDiv.innerHTML = '';
     }, 3000);
-};
+    
+};*/

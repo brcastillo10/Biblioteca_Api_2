@@ -9,6 +9,27 @@ body {
     padding: 1rem;
 }
 
+.container-nav {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.libro-update {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.libro-update:hover {
+    background-color: #575858;
+    color: white;
+    border-radius: 0.25rem;
+}
 .navbar-brand {
     font-size: 1.5rem;
 }

@@ -1,0 +1,76 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-container h2 {
+    color: #333333;
+    margin-bottom: 1.5rem;
+}
+
+.login-container .form-label {
+    color: #555555;
+}
+
+.login-container .form-text {
+    margin-bottom: 1rem;
+    color: #777777;
+}
+
+.login-container .btn-primary {
+    background-color: #3498db;
+    border: none;
+}
+
+.login-container .btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.login-container a {
+    color: #3498db;
+}
+
+.login-container a:hover {
+    color: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        padding: 1rem;
+        border-radius: 0.25rem;
+    }
+}
+
+.background-image {
+    background-image: url(https://cdn.pixabay.com/photo/2016/11/29/12/50/bookcases-1869616_1280.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
