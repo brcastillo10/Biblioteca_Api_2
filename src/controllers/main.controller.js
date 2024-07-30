@@ -15,13 +15,13 @@ const index = (req, res) => {
 const getUserInfo = async (req, res) => {
     try {
         const userId = req.userId;
-        const user = await User.findById(userId).select('nombre correo'); // Obtiene el nombre y correo del usuario
+        const user = await User.findById(userId).select('nombre correo edad ciudad'); // Obtiene el nombre y correo del usuario
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        res.status(200).json({ nombre: user.nombre, correo: user.correo });
+        res.status(200).json({ nombre: user.nombre, correo: user.correo, ciudad: user.ciudad, edad: user.edad});
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los datos del usuario', error });
     }
