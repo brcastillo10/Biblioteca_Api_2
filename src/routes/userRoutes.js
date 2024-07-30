@@ -4,6 +4,7 @@ const User = require('../models/User');
 const router = express.Router();
 const controller = require("../controllers/main.controller");
 const UserController = require("../controllers/users.controller");
+const { getUserInfo } = require('../controllers/main.controller');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const jwt = require('jsonwebtoken');
@@ -28,7 +29,7 @@ router.get('/registerview', (req, res) => {
 });
 
 // Ruta auth para obtener información del usuario
-router.get('/user-info', authMiddleware, controller.getUserInfo);
+router.get('/user-info', authMiddleware, getUserInfo);
 router.post('/toggle-2fa', authMiddleware, controller.toggle2FA);
 
 // Rutas para 2FA

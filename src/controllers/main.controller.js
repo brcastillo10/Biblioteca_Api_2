@@ -14,10 +14,16 @@ const index = (req, res) => {
 
 const getUserInfo = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-contrasena -twoFactorSecret');
-        res.json(user);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const userId = req.userId;
+        const user = await User.findById(userId).select('nombre correo'); // Obtiene el nombre y correo del usuario
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        res.status(200).json({ nombre: user.nombre, correo: user.correo });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los datos del usuario', error });
     }
 };
 

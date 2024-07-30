@@ -1,15 +1,18 @@
-module.exports = (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-    if (!token) {
-        return res.status(401).json({ error: 'No token, autorización denegada' });
-    }
+module.exports = async (req, res, next) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
 
-    try {
-        const decoded = jwt.verify(token, jwtSecret);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        res.status(401).json({ error: 'Token no válido' });
-    }
+  if (!token) {
+    return res.status(401).json({ message: 'No hay token, autorización denegada' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, 'hola-richar-key');
+    req.userId = decoded.id;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Token no es válido' });
+  }
 };
