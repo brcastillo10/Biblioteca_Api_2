@@ -22,6 +22,22 @@ router.post("/login", controller.login);
 router.get('/home',(req, res) => {
     res.sendFile(path.resolve(__dirname, "../views/home.html"));
 });
+//Vista para actualizar libro
+router.get('/librosupdate', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/librosupdate.html'));
+});
+//Vista para erro 404
+router.get('/404', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/404.html'));
+});
+//Vista de acceso denegado
+router.get('/acceso-denegado', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/access-denied.html'));
+});
+//Vista de perfil de usuario
+router.get('/profile', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/profile.html'));
+});
 
 // Ruta para la vista de registro
 router.get('/registerview', (req, res) => {
