@@ -30,3 +30,5 @@ app.use('/', libroRutes);
 app.listen(port, () => {
     console.log(`Server Corriendo en http://localhost:${port}`);
 });
+
+module.exports = app;
