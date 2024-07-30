@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylesHome.css">
+    <title>Actualizar Libro</title>
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <nav class="navbar">
+        <div class="container">
+            <span class="navbar-brand">Dashboard Biblioteca</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="user-info" id="userInfo">
+            <!-- Información del usuario y botones de 2FA se insertarán aquí -->
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Lista de Libros</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="book-list">
+                        <!-- Lista de libros -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Agregar Libro</h2>
+            </div>
+            <div class="card-body">
+                <form id="add-book-form">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="titulo" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editorial" class="form-label">Editorial:</label>
+                        <input type="text" class="form-control" id="editorial" name="editorial" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaDePublicacion" class="form-label">Fecha de Publicación:</label>
+                        <input type="date" class="form-control" id="fechaDePublicacion" name="fechaDePublicacion" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="autores" class="form-label">Autores (separados por comas):</label>
+                        <input type="text" class="form-control" id="autores" name="autores" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="genero" class="form-label">Género:</label>
+                        <input type="text" class="form-control" id="genero" name="genero" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="resumen" class="form-label">Resumen:</label>
+                        <textarea class="form-control" id="resumen" name="resumen" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+        </div>
+        <div class="card" id="update-card">
+            <div class="card-header">
+                <h2 class="card-title">Actualizar Libro</h2>
+            </div>
+            <div class="card-body">
+                <form id="update-book-form">
+                    <input type="hidden" id="update-id" name="id">
+                    <div class="mb-3">
+                        <label for="update-title" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="update-title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="update-author" class="form-label">Autor:</label>
+                        <input type="text" class="form-control" id="update-author" name="author" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-update">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
