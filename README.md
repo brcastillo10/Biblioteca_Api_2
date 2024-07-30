@@ -6,6 +6,7 @@ Hemos utilizado Node.js y Express para la implementación del backend, y MongoDB
 
 # Seguridad y Autenticación
 Para garantizar la seguridad, hemos implementado autenticación basada en JSON Web Tokens (JWT), y tambien una autenticación de doble factor.
+
 Además se uso Slint y Jest para los test de funcionamiento de los diferentes endpoints.
 
 
